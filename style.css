@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+
+}
+
+.header {
+  margin-top: 0.75rem;
+}
+
+.header-container {
+  background-color: blue;
+}
+
+.h1-text {
+  color: white;
+  text-align: center;
+}
+
