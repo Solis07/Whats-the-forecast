@@ -13,7 +13,7 @@ body {
 }
 
 .header-container {
-  background-color: blue;
+  background-color: linear-gradient(right, teal, blue);
 }
 
 .h1-text {
