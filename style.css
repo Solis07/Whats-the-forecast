@@ -4,17 +4,34 @@
   box-sizing: border-box;
 }
 
-body {
-
-}
+/* Header styling */
 
 header {
   padding: 0.75rem 0;
-  background: linear-gradient(to left, teal, blue);
+  background: linear-gradient(to right, rgb(0, 149, 255), rgb(3, 24, 179));
 }
 
-.h1-text {
+.h1{
   color: white;
   text-align: center;
 }
+
+/* Main content */
+main.container {
+  background-color: white;
+}
+
+/* Search Side Bar */
+
+.recent {
+  font-size: 1.2rem;
+}
+
+.city-list {
+  margin-top: 20px;
+}
+
+
+
+
 
