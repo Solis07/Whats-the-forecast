@@ -8,12 +8,9 @@ body {
 
 }
 
-.header {
-  margin-top: 0.75rem;
-}
-
-.header-container {
-  background-color: linear-gradient(right, teal, blue);
+header {
+  padding: 0.75rem 0;
+  background: linear-gradient(to left, teal, blue);
 }
 
 .h1-text {
