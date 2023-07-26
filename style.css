@@ -23,6 +23,22 @@ main.container {
 
 /* Search Side Bar */
 
+label {
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.search-btn {
+  background-color:rgb(0, 149, 255);
+  border-style: none;
+  border-radius: 3px;
+  padding: 5px;
+}
+
 .recent {
   font-size: 1.2rem;
 }
@@ -30,6 +46,64 @@ main.container {
 .city-list {
   margin-top: 20px;
 }
+
+/* Current City Display */
+.current-forecast-container {
+  border: solid 1px black;
+  margin-left: -12px;
+}
+
+.current-forecast-container p {
+  margin-left: 25px;
+}
+
+#city {
+  margin-top: 10px;
+  margin-right: 15px;
+  margin-left: 25px;
+}
+
+#current-date {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+/* Future Forecast Display */
+.future-forecast-container {
+  border: solid 1px black;
+  margin-top: 10px;
+}
+
+.future-forecast-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.future-cards-container {
+  padding: 10px;
+}
+
+.future-card {
+  width: 20%;
+  margin:5px;
+  padding: 7px;
+}
+
+.future-date {
+  color: white;
+}
+
+.future-icon{
+
+}
+
+.future-temp, .future-humidity, .future-wind {
+ font-size: 0.9rem;
+ color: white;
+}
+
+
 
 
 

@@ -9,20 +9,20 @@
   <link rel="stylesheet" href="./style.css">
   <title>Whats The Forecast</title>
 </head>
-<body>
 
+<body>
 <!--Header-->  
-  <header class="header">
-    <div class="header-title">
-      <h1 class="h1">Weather  Dashboard</h1>
-    </div>
-  </header>
+<header class="header">
+  <div class="header-title">
+    <h1 class="h1">Weather  Dashboard</h1>
+  </div>
+</header>
     
-  <main class= "container">
-    <div class="row p-2">
+<main class= "container">
+  <div class="row p-2">
 
 <!--Will display the city search bar and the recent searches-->
-    <div class="left-panel col-sm-12 col-md-3 order-md-1">
+   <div class="left-panel col-sm-12 col-md-3 order-md-1">
       <form>
         <div class="form-row">
           <div class="form-group col-8">
@@ -48,20 +48,67 @@
 <!--Will display the current weather forecast with the following indicators-->
     <div class="col-sm-12 col-md-9 order-md-2">
       <div class="row">
-        <div class="current-weather col-12 p-0">
-          <div class=" city-name d-flex">
-            <h2 id="city">City</h2>
-            <h2 id="date">Date</h2>
-            <img id="weather-icon">
-          </div>
-            <p>Temperature:<span id="temperature"></span> &deg;F </p>
-            <p>Humidity:<span id="humidity"></span> % </p>
-            <p>Wind Speed:<span id="wind"></span> MPH </p>
+        <div class="current-forecast-container col-12 p-0">
+            <div class=" city-name d-flex">
+              <h2 id="city">San Antonio</h2>
+              <h2 id="current-date">7/26/23</h2>
+              <img id="weather-icon">
+            </div>
+            <p>Temperature:<span id="current-temperature"></span> &deg;F </p>
+            <p>Humidity:<span id="current-humidity"></span> % </p>
+            <p>Wind Speed:<span id="current-wind"></span> mph </p>
         </div>
-      </div>
-    </div>    
+        
+<!--Will display the 5 day weather forecast for the city.-->
+        <div class="row future-forecast-container d-block">
+          <h2 class="future-forecast-title" id="future-forecast-title">5 Day Forecast</h2>
+          <div class="future-cards-container d-flex justify-content-between" id="future-cards-container">
+      
+           <div class="future-card bg-primary rounded">
+              <p class="future-date" id="future-date-1">date</p>
+              <img id="future-icon-1" src="" alt="">
+              <p class="future-temp" id="future-temp-1">temp</p>
+              <p class="future-humidity" id="future-humidity-1">humidity</p>
+              <p class="future-wind" id="future-wind-1">wind</p>
+            </div>
+      
+            <div class="future-card bg-primary rounded">
+              <p class="future-date" id="future-date-2">date</p>
+              <img id="future-icon-2" src="" alt="">
+              <p class="future-temp" id="future-temp-2">temp</p>
+              <p class="future-humidity" id="future-humidity-2">humidity</p>
+              <p class="future-wind" id="future-wind-2">wind</p>
+            </div>
+      
+            <div class="future-card bg-primary rounded">
+             <p class="future-date" id="future-date-3">date</p>
+             <img id="future-icon-3" src="" alt="">
+             <p class="future-temp" id="future-temp-3">temp</p>
+             <p class="future-humidity" id="future-humidity-3">humidity</p>
+             <p class="future-wind" id="future-wind-3">wind</p>
+            </div>
+      
+             <div class="future-card bg-primary rounded">
+              <p class="future-date" id="future-date-4">date</p>
+              <img id="future-icon-4" src="" alt="">
+              <p class="future-temp" id="future-temp-4">temp</p>
+              <p class="future-humidity" id="future-humidity-4">humidity</p>
+              <p class="future-wind" id="future-wind-4">wind</p>
+            </div>
+      
+            <div class="future-card bg-primary rounded">
+              <p class="future-date" id="future-date-5">date</p>
+              <img id="future-icon-5" src="" alt="">
+              <p class="future-temp" id="future-temp-5">temp</p>
+             <p class="future-humidity" id="future-humidity-5">humidity</p>
+             <p class="future-wind" id="future-wind-5">wind</p>
+            </div>
+          </div>
+        </div>
 
-</div>
+      </div>
+    </div>
+  </div>
 </main>
   <script scr="./script.js"></script>
 </body>
