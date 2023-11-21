@@ -16,4 +16,34 @@ $(document).ready(function () {
 
   // Store past searched cities
   let recentCities = [];
+
+  // Helper function to sort cities from https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+  function compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const cityA = a.city.toUpperCase();
+    const cityB = b.city.toUpperCase();
+
+    let comparison = 0;
+    if (cityA > cityB) {
+      comparison = 1;
+    } else if (cityA < cityB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  // Local storage functions for past searched cities
+
+  // Load events from local storage
+  function loadCities() {
+    const savedCities = JSON.parse(localStorage.getItem("recentCities"));
+    if (savedCities) {
+      recentCities = savedCities;
+    }
+  }
+
+  // Store searched cities in local storage
+  function searchedCities() {
+    localStorage.setItem("recentCities", JSON.stringify(recentCities));
+  }
 });
