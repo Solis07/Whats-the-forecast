@@ -46,4 +46,24 @@ $(document).ready(function () {
   function searchedCities() {
     localStorage.setItem("recentCities", JSON.stringify(recentCities));
   }
+
+    function buildURLFromId(id) {
+      return `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}`;
+    }
+
+    // Function to display the last 5 searched cities
+    function displayCities(pastCities) {
+      cityList.empty();
+      recentCities.splice(5);
+      let sortedCities = [...recentCities];
+      sortedCities.sort(compare);
+      sortedCities.forEach(function (location) {
+        let cityDiv = $("<div>").addClass("col-12 city");
+        let cityBtn = $("<button>")
+          .addClass("btn btn-light city-btn")
+          .text(location.city);
+        cityDiv.append(cityBtn);
+        cityList.append(cityDiv);
+      });
+    }
 });
