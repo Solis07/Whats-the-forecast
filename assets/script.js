@@ -1,11 +1,10 @@
 $(document).ready(function () {
-  
   // OpenWeather API
-  const apiKey = "ec4c9727c66b6022014b99c09152f2a9;";
+  const apiKey = "ec4c9727c66b6022014b99c09152f2a9";
 
   // Selectors for HTML elements to display weather information
   const cityName = $("h2#city");
-  const date = $("h32#current-date");
+  const date = $("h2#current-date");
   const weatherImg = $("img#weather-icon");
   const temperature = $("span#current-temperature");
   const humidity = $("span#current-humidity");
@@ -48,39 +47,38 @@ $(document).ready(function () {
     localStorage.setItem("recentCities", JSON.stringify(recentCities));
   }
 
-   function buildURLFromInputs(city) {
-     if (city) {
-       return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-     }
-   }
-
-    function buildURLFromId(id) {
-      return `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}`;
+  function buildURLFromInputs(city) {
+    if (city) {
+      return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     }
+  }
 
-    // Function to display the last 5 searched cities
-    function displayCities(recentCities) {
-      cityList.empty();
-      recentCities.splice(5);
-      let sortedCities = [...recentCities];
-      sortedCities.sort(compare);
-      sortedCities.forEach(function (location) {
-        let cityDiv = $("<div>").addClass("col-12 city");
-        let cityBtn = $("<button>")
-          .addClass("btn btn-light city-btn")
-          .text(location.city);
-        cityDiv.append(cityBtn);
-        cityList.append(cityDiv);
-      });
-    }
-  
-    // Search for weather conditions by calling the OpenWeather API
+  function buildURLFromId(id) {
+    return `https://api.openweathermap.org/data/2.5/weather?id=${id}&appid=${apiKey}`;
+  }
+
+  // Function to display the last 5 searched cities
+  function displayCities(recentCities) {
+    cityList.empty();
+    recentCities.splice(5);
+    let sortedCities = [...recentCities];
+    sortedCities.sort(compare);
+    sortedCities.forEach(function (location) {
+      let cityDiv = $("<div>").addClass("col-12 city");
+      let cityBtn = $("<button>")
+        .addClass("btn btn-light city-btn")
+        .text(location.city);
+      cityDiv.append(cityBtn);
+      cityList.append(cityDiv);
+    });
+  }
+
+  // Search for weather conditions by calling the OpenWeather API
   function searchWeather(queryURL) {
-
     // Create an AJAX call to retrieve weather data
     $.ajax({
       url: queryURL,
-      method: 'GET'
+      method: "GET",
     }).then(function (response) {
       // Store current city in past cities
       let city = response.name;
@@ -107,9 +105,9 @@ $(document).ready(function () {
       humidity.text(response.main.humidity);
       wind.text((response.wind.speed * 2.237).toFixed(1));
     });
-  };
+  }
 
-  var fiveDayForecastSection = function (cityName) {
+  function fiveDayForecastSection(cityName) {
     // get and use data from open weather current weather api end point
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`
@@ -120,11 +118,11 @@ $(document).ready(function () {
       })
       .then(function (response) {
         // get city's longitude and latitude
-        var cityLon = response.coord.lon;
-        var cityLat = response.coord.lat;
+        var lon = response.coord.lon;
+        var lat = response.coord.lat;
 
         fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`
         )
           // get response from one call api and turn it into objects
           .then(function (response) {
@@ -171,8 +169,62 @@ $(document).ready(function () {
             }
           });
       });
-  };
+  }
 
-  
+  // Function to display the last searched city
+  function displayLastSearchedCity() {
+    if (recentCities[0]) {
+      let queryURL = buildURLFromId(recentCities[0].id);
+      searchWeather(queryURL);
+      fiveDayForecastSection(city);
 
+    } else {
+      // if no past searched cities, load Detroit weather data
+      let queryURL = buildURLFromInputs("San Antonio");
+      searchWeather(queryURL);
+      fiveDayForecastSection(cityName);
+    }
+  }
+
+  // Click handler for search button
+  $("#search-btn").on("click", function (event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+
+    // Retrieving and scrubbing the city from the inputs
+    let city = cityInput.val().trim();
+    city = city.replace(" ", "%20");
+
+    // Clear the input fields
+    cityInput.val("");
+
+    // Build the query url with the city and searchWeather
+    if (city) {
+      let queryURL = buildURLFromInputs(city);
+      searchWeather(queryURL);
+      fiveDayForecastSection(cityName);
+    }
+  });
+
+  // Click handler for city buttons to load that city's weather
+  $(document).on("click", "button.city-btn", function (event) {
+    console.log(event)
+    let clickedCity = $(this).text();
+    let foundCity = $.grep(recentCities, function (storedCity) {
+      return clickedCity === storedCity.city;
+    });
+    let queryURL = buildURLFromId(foundCity[0].id);
+    searchWeather(queryURL);
+    fiveDayForecastSection(cityName);
+  });
+
+  // Initialization - when page loads
+
+  // load any cities in local storage into array
+  loadCities();
+  displayCities(recentCities);
+
+  // Display weather for last searched city
+  displayLastSearchedCity();
 });
+
