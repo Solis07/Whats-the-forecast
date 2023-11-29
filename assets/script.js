@@ -107,25 +107,33 @@ $(document).ready(function () {
       // Call OpenWeather API OneCall with lat and lon to get the UV index and 5 day forecast
       let lat = response.coord.lat;
       let lon = response.coord.lon;
-      let queryURLAll = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;                       
+      let queryURLAll = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;                       
        $.ajax({
         url: queryURLAll,
         method: "GET",
       }).then(function (response) {
+     
 
-        let fiveDay = response.daily;
+        let fiveDay = response.list;
+        console.log(fiveDay);
+        
+        let fiveDayForecast = []
+        for (var i = 0; i < fiveDay.length; i+=8){
+          console.log(fiveDay[i])
+          fiveDayForecast.push(fiveDay[i])
+        }
 
         // Display 5 day forecast in DOM elements
-        for (let i = 0; i <= 5; i++) {
-          let currDay = fiveDay[i];
+        for (let i = 0; i < 5; i++) {
+          let currDay = fiveDayForecast[i];
           $(`div.day-${i} .card-title`).text(moment.unix(currDay.dt).format("L"));
           $(`div.day-${i} .future-img`).attr(
               "src",
               `http://openweathermap.org/img/wn/${currDay.weather[0].icon}.png`
             )
             .attr("alt", currDay.weather[0].description);
-          $(`div.day-${i} .future-temperature`).text(((currDay.temp.day - 273.15) * 1.8 + 32).toFixed(1));
-          $(`div.day-${i} .future-humidity`).text(currDay.humidity);
+          $(`div.day-${i} .future-temperature`).text(((currDay.main.temp - 273.15) * 1.8 + 32).toFixed(1));
+          $(`div.day-${i} .future-humidity`).text(currDay.main.humidity);
         }
       });
     });
